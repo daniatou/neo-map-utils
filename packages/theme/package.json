@@ -1,0 +1,20 @@
+{
+  "name": "@leaflet-layer-panel/theme",
+  "version": "0.1.0",
+  "type": "module",
+  "sideEffects": [
+    "./styles/*.css"
+  ],
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.js"
+    },
+    "./styles/base.css": "./styles/base.css",
+    "./styles/variables.css": "./styles/variables.css",
+    "./tailwind": {
+      "types": "./tailwind/preset.d.ts",
+      "import": "./tailwind/preset.js"
+    }
+  }
+}

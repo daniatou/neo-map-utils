@@ -1,0 +1,96 @@
+import type { LayerAdapter, LayerRecord } from '@leaflet-layer-panel/core';
+import type * as Leaflet from 'leaflet';
+
+type LeafletLayer = Leaflet.Layer & {
+  setOpacity?: (opacity: number) => void;
+  setStyle?: (style: { opacity?: number; fillOpacity?: number }) => void;
+  setZIndex?: (zIndex: number) => void;
+  bringToFront?: () => void;
+  bringToBack?: () => void;
+};
+
+export class LeafletLayerAdapter implements LayerAdapter {
+  private readonly layers = new Map<string, LeafletLayer>();
+  private readonly layerRecords = new Map<string, LayerRecord>();
+
+  constructor(private readonly map: Leaflet.Map) {}
+
+  addLayer(layer: LayerRecord): void {
+    const leafletLayer = this.resolveLayer(layer);
+    if (!leafletLayer) {
+      return;
+    }
+    this.layerRecords.set(layer.id, layer);
+    this.layers.set(layer.id, leafletLayer);
+    this.applyLayerOrder(layer, leafletLayer);
+    if (layer.visible && !this.map.hasLayer(leafletLayer)) {
+      leafletLayer.addTo(this.map);
+      this.applyLayerOrder(layer, leafletLayer);
+    }
+  }
+
+  removeLayer(layer: LayerRecord): void {
+    const leafletLayer = this.layers.get(layer.id);
+    if (leafletLayer && this.map.hasLayer(leafletLayer)) {
+      this.map.removeLayer(leafletLayer);
+    }
+    this.layers.delete(layer.id);
+    this.layerRecords.delete(layer.id);
+  }
+
+  setVisible(layer: LayerRecord, visible: boolean): void {
+    const leafletLayer = this.resolveLayer(layer);
+    if (!leafletLayer) {
+      return;
+    }
+    this.layerRecords.set(layer.id, layer);
+    this.layers.set(layer.id, leafletLayer);
+    this.applyLayerOrder(layer, leafletLayer);
+    if (visible && !this.map.hasLayer(leafletLayer)) {
+      leafletLayer.addTo(this.map);
+      this.applyLayerOrder(layer, leafletLayer);
+      this.reorderVisibleLayers();
+    }
+    if (!visible && this.map.hasLayer(leafletLayer)) {
+      this.map.removeLayer(leafletLayer);
+    }
+  }
+
+  setOpacity(layer: LayerRecord, opacity: number): void {
+    const leafletLayer = this.layers.get(layer.id) ?? this.resolveLayer(layer);
+    leafletLayer?.setOpacity?.(opacity);
+    leafletLayer?.setStyle?.({ opacity, fillOpacity: opacity });
+  }
+
+  private resolveLayer(layer: LayerRecord): LeafletLayer | undefined {
+    return (layer.resolvedLayer ?? layer.layer) as LeafletLayer | undefined;
+  }
+
+  private applyLayerOrder(layer: LayerRecord, leafletLayer: LeafletLayer): void {
+    if (layer.kind === 'base') {
+      leafletLayer.setZIndex?.(100);
+      leafletLayer.bringToBack?.();
+      return;
+    }
+
+    const zIndex = layer.type === 'wms' || layer.type === 'tile' ? 450 : 650;
+    leafletLayer.setZIndex?.(zIndex);
+    leafletLayer.bringToFront?.();
+  }
+
+  private reorderVisibleLayers(): void {
+    for (const [id, leafletLayer] of this.layers) {
+      if (!this.map.hasLayer(leafletLayer)) {
+        continue;
+      }
+      const layer = this.findLayerRecord(id);
+      if (layer) {
+        this.applyLayerOrder(layer, leafletLayer);
+      }
+    }
+  }
+
+  private findLayerRecord(id: string): LayerRecord | undefined {
+    return this.layerRecords.get(id);
+  }
+}

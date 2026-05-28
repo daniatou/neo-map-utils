@@ -1,0 +1,15 @@
+@import './variables.css';
+
+.llp-panel {
+  color: rgb(var(--llp-text));
+  background: rgb(var(--llp-surface) / 0.98);
+  border: 0;
+  border-radius: var(--llp-radius);
+  box-shadow: none;
+  font-family: var(--llp-font-family);
+  backdrop-filter: blur(var(--llp-panel-blur));
+}
+
+.llp-panel[data-layout='floating'] {
+  box-shadow: var(--llp-shadow-soft);
+}

@@ -1,0 +1,41 @@
+{
+  "name": "demo-angular",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/demo-angular/src",
+  "tags": ["scope:demo", "type:app"],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/demo-angular",
+        "index": "apps/demo-angular/src/index.html",
+        "browser": "apps/demo-angular/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/demo-angular/tsconfig.app.json",
+        "styles": ["apps/demo-angular/src/styles.css"],
+        "assets": []
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "sourceMap": false
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "buildTarget": "demo-angular:build:development"
+      }
+    }
+  }
+}

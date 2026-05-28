@@ -1,0 +1,33 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": true,
+    "moduleResolution": "bundler",
+    "emitDecoratorMetadata": false,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ESNext",
+    "lib": ["ES2022", "DOM"],
+    "skipLibCheck": true,
+    "strict": true,
+    "baseUrl": ".",
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@leaflet-layer-panel/core": ["packages/core/src/index.ts"],
+      "@leaflet-layer-panel/adapter-angular": ["packages/adapter-angular/src/index.ts"],
+      "@leaflet-layer-panel/adapter-react": ["packages/adapter-react/src/index.ts"],
+      "@leaflet-layer-panel/adapter-vue": ["packages/adapter-vue/src/index.ts"],
+      "@leaflet-layer-panel/ui-headless": ["packages/ui-headless/src/index.ts"],
+      "@leaflet-layer-panel/icons": ["packages/icons/src/index.ts"],
+      "@leaflet-layer-panel/theme": ["packages/theme/src/index.ts"],
+      "@leaflet-layer-panel/utils": ["packages/utils/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

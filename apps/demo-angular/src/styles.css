@@ -1,0 +1,21 @@
+@config "../../../tailwind.config.js";
+
+@import 'leaflet/dist/leaflet.css';
+@import '../../../packages/theme/src/styles/base.css';
+@import '../../../packages/adapter-angular/src/styles.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: rgb(var(--llp-surface));
+  color: rgb(var(--llp-text));
+  font-family: var(--llp-font-family);
+}

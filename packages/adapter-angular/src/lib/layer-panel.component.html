@@ -1,0 +1,233 @@
+<section
+  class="llp-panel flex flex-col overflow-hidden font-llp text-llp-text"
+  [attr.data-variant]="variant"
+  [attr.data-layout]="resolvedUi().layout"
+  [ngStyle]="panelStyle()"
+>
+  <header class="sticky top-0 z-10 bg-llp-surface/95 p-llp">
+    <div class="flex items-center justify-between gap-3">
+      <div class="min-w-0">
+        <h2 class="truncate text-sm font-semibold tracking-normal">{{ title }}</h2>
+        <p class="text-xs text-llp-muted">{{ resolvedUi().labels.subtitle }}</p>
+      </div>
+
+      @if (resolvedUi().showGlobalVisibilityActions || resolvedUi().showGroupExpansionAction) {
+      <div class="flex shrink-0 items-center gap-1 rounded-llp bg-llp-panel p-1">
+        @if (resolvedUi().showGlobalVisibilityActions) {
+        <button
+          type="button"
+          class="flex h-7 w-7 items-center justify-center rounded-llp text-llp-muted transition hover:bg-llp-primary/10 hover:text-llp-primary focus:outline-none focus:ring-2 focus:ring-llp-primary/20"
+          [attr.aria-label]="areAllOverlaysVisible() ? resolvedUi().labels.hideAll : resolvedUi().labels.showAll"
+          [title]="areAllOverlaysVisible() ? resolvedUi().labels.hideAll : resolvedUi().labels.showAll"
+          (click)="toggleAllVisible()"
+        >
+          <llp-icon class="h-4 w-4" [name]="areAllOverlaysVisible() ? 'eye-off' : 'eye'" />
+        </button>
+        }
+        @if (resolvedUi().showGlobalVisibilityActions && resolvedUi().showGroupExpansionAction) {
+        <span class="mx-1 h-4 w-px bg-llp-muted/20"></span>
+        }
+        @if (resolvedUi().showGroupExpansionAction) {
+        @if (allGroupsExpanded()) {
+          <button
+            type="button"
+            class="flex h-7 w-7 items-center justify-center rounded-llp text-llp-muted transition hover:bg-llp-primary/10 hover:text-llp-primary focus:outline-none focus:ring-2 focus:ring-llp-primary/20"
+            [attr.aria-label]="resolvedUi().labels.collapseAll"
+            [title]="resolvedUi().labels.collapseAll"
+            (click)="collapseAll()"
+          >
+            <llp-icon class="h-4 w-4" name="collapse" />
+          </button>
+        } @else {
+          <button
+            type="button"
+            class="flex h-7 w-7 items-center justify-center rounded-llp text-llp-muted transition hover:bg-llp-primary/10 hover:text-llp-primary focus:outline-none focus:ring-2 focus:ring-llp-primary/20"
+            [attr.aria-label]="resolvedUi().labels.expandAll"
+            [title]="resolvedUi().labels.expandAll"
+            (click)="expandAll()"
+          >
+            <llp-icon class="h-4 w-4" name="expand" />
+          </button>
+        }
+        }
+      </div>
+      }
+    </div>
+
+    @if (resolvedUi().showSearch) {
+    <label class="mt-3 block">
+      <span class="sr-only">Search layers</span>
+      <input
+        type="search"
+        class="w-full rounded-llp bg-llp-panel px-3 py-2 text-sm text-llp-text outline-none transition placeholder:text-llp-muted/70 hover:bg-llp-panel/90 focus:ring-2 focus:ring-llp-primary/20"
+        [placeholder]="resolvedUi().labels.searchPlaceholder"
+        [value]="state()?.search ?? ''"
+        (input)="onSearch($event)"
+      />
+    </label>
+    }
+
+    @if (baseLayers().length > 0 && resolvedUi().baseLayerControl === 'select') {
+      <label class="mt-3 block">
+        <span class="mb-1 block text-xs font-medium text-llp-muted">{{ resolvedUi().labels.baseLayer }}</span>
+        <span class="relative block">
+          <select
+            class="w-full appearance-none rounded-llp bg-llp-panel py-2 pl-3 pr-9 text-sm text-llp-text outline-none transition hover:bg-llp-panel/90 focus:ring-2 focus:ring-llp-primary/20"
+            [value]="activeBaseLayerId()"
+            (change)="onBaseLayerSelect($event)"
+          >
+            @for (layer of baseLayers(); track layer.id) {
+              <option [value]="layer.id">{{ layer.name }}</option>
+            }
+          </select>
+          <llp-icon
+            class="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 rotate-90 text-llp-muted"
+            name="chevron"
+          />
+        </span>
+      </label>
+    }
+
+    @if (baseLayers().length > 0 && resolvedUi().baseLayerControl === 'radio') {
+      <div class="mt-3">
+        <span class="mb-1 block text-xs font-medium text-llp-muted">{{ resolvedUi().labels.baseLayer }}</span>
+        <div class="grid gap-1 rounded-llp bg-llp-panel/60 p-1">
+          @for (layer of baseLayers(); track layer.id) {
+            <button
+              type="button"
+              class="flex items-center gap-2 rounded-llp px-2 py-1.5 text-left text-sm transition hover:bg-llp-surface"
+              [class.bg-llp-surface]="layer.visible"
+              (click)="panel.setBaseLayer(layer.id)"
+            >
+              <span class="h-2 w-2 rounded-full bg-llp-muted/30" [class.bg-llp-primary]="layer.visible"></span>
+              <span class="min-w-0 flex-1 truncate">{{ layer.name }}</span>
+            </button>
+          }
+        </div>
+      </div>
+    }
+
+  </header>
+
+  <div class="llp-scrollbar min-h-0 flex-1 overflow-y-auto p-2">
+    @for (group of groups(); track group.id) {
+      @if (hasOverlayContent(group)) {
+        <ng-container
+          [ngTemplateOutlet]="groupTemplate"
+          [ngTemplateOutletContext]="{ group: group, depth: 0 }"
+        />
+      }
+    }
+  </div>
+</section>
+
+<ng-template #groupTemplate let-group="group" let-depth="depth">
+  <article class="mb-1">
+    <button
+      type="button"
+      class="flex w-full items-center gap-2 rounded-llp px-3 py-2 text-left text-sm font-medium transition hover:bg-llp-panel focus:outline-none focus:ring-2 focus:ring-llp-primary/20"
+      [style.padding-left.rem]="0.75 + depth * 1"
+      [attr.aria-expanded]="isExpanded(group.id)"
+      (click)="setExpanded(group.id, !isExpanded(group.id))"
+    >
+      <llp-icon
+        class="h-4 w-4 text-llp-muted transition"
+        [class.rotate-90]="isExpanded(group.id)"
+        name="chevron"
+      />
+      <llp-icon class="h-4 w-4 text-llp-muted" [name]="group.icon ?? 'group'" />
+      <span class="min-w-0 flex-1 truncate">{{ group.name }}</span>
+      @if (groupLayerCount(group) > 0) {
+        @if (resolvedUi().visibilityControl === 'eye') {
+        <button
+          type="button"
+          class="flex h-7 w-7 items-center justify-center rounded-llp text-llp-muted transition hover:bg-llp-panel hover:text-llp-primary focus:outline-none focus:ring-2 focus:ring-llp-primary/20"
+          [attr.aria-label]="'Toggle all overlays in ' + group.name"
+          (click)="toggleGroupVisible(group, $event)"
+        >
+          <llp-icon class="h-4 w-4" [name]="isGroupChecked(group) ? 'eye' : 'eye-off'" />
+        </button>
+        } @else {
+          <input
+            type="checkbox"
+            class="h-4 w-4 rounded border-0 accent-[rgb(var(--llp-primary))] focus:ring-llp-primary/30"
+            [checked]="isGroupChecked(group)"
+            [indeterminate]="isGroupIndeterminate(group)"
+            [attr.aria-label]="'Toggle all overlays in ' + group.name"
+            (click)="$event.stopPropagation()"
+            (change)="onGroupCheckbox(group, $event)"
+          />
+        }
+      }
+    </button>
+
+    @if (isExpanded(group.id)) {
+      <div class="overflow-hidden transition-all" [style.margin-left.rem]="1.15 + depth * 1">
+        @for (layerRef of group.layers; track layerRef.id) {
+          @if (layerById(layerRef.id); as layer) {
+            @if (isOverlayLayer(layer) && matchesSearch(layer)) {
+              <div class="rounded-llp py-2 pl-4 pr-3 transition hover:bg-llp-panel">
+                <div class="flex items-center gap-3">
+                  <llp-icon class="h-4 w-4 text-llp-muted" [name]="layer.icon ?? layer.type" />
+                  <div class="min-w-0 flex-1">
+                    <div class="truncate text-sm">{{ layer.name }}</div>
+                    @if (layer.loading) {
+                      <div class="text-xs text-llp-muted">Loading</div>
+                    }
+                    @if (layer.error) {
+                      <div class="text-xs text-red-500">{{ layer.error }}</div>
+                    }
+                  </div>
+                  @if (resolvedUi().visibilityControl === 'eye') {
+                    <button
+                    type="button"
+                    class="flex h-7 w-7 items-center justify-center rounded-llp text-llp-muted transition hover:bg-llp-primary/10 hover:text-llp-primary focus:outline-none focus:ring-2 focus:ring-llp-primary/20"
+                    [attr.aria-pressed]="layer.visible"
+                    [attr.aria-label]="'Toggle ' + layer.name"
+                    (click)="panel.setLayerVisible(layer.id, !layer.visible)"
+                  >
+                    <llp-icon class="h-4 w-4" [name]="layer.visible ? 'eye' : 'eye-off'" />
+                  </button>
+                  } @else {
+                    <input
+                      type="checkbox"
+                      class="h-4 w-4 rounded border-0 accent-[rgb(var(--llp-primary))] focus:ring-llp-primary/30"
+                      [checked]="layer.visible"
+                      [attr.aria-label]="'Toggle ' + layer.name"
+                      (change)="onLayerCheckbox(layer.id, $event)"
+                    />
+                  }
+                </div>
+
+                @if (resolvedUi().showOpacity) {
+                <label class="mt-2 flex items-center gap-2 text-xs text-llp-muted">
+                  <span class="w-12">{{ resolvedUi().labels.opacity }}</span>
+                  <input
+                    class="llp-range min-w-0 flex-1"
+                    type="range"
+                    min="0"
+                    max="100"
+                    [value]="layer.opacity * 100"
+                    (input)="onOpacity(layer.id, $event)"
+                  />
+                </label>
+                }
+              </div>
+            }
+          }
+        }
+
+        @for (child of group.children ?? []; track child.id) {
+          @if (hasOverlayContent(child)) {
+            <div class="pl-2">
+              <ng-container
+                [ngTemplateOutlet]="groupTemplate"
+                [ngTemplateOutletContext]="{ group: child, depth: depth + 1 }"
+              />
+            </div>
+          }
+        }
+      </div>
+    }
+  </article>
+</ng-template>

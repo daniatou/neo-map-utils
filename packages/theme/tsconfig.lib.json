@@ -1,0 +1,7 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc/theme"
+  },
+  "include": ["src/**/*.ts"]
+}

@@ -1,0 +1,25 @@
+{
+  "name": "adapter-angular",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/adapter-angular/src",
+  "projectType": "library",
+  "tags": ["scope:angular", "type:adapter"],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/adapter-angular",
+        "main": "packages/adapter-angular/src/index.ts",
+        "tsConfig": "packages/adapter-angular/tsconfig.lib.json",
+        "assets": ["packages/adapter-angular/src/**/*.html", "packages/adapter-angular/src/**/*.css"]
+      }
+    },
+    "test": {
+      "executor": "@nx/vitest:test",
+      "options": {
+        "config": "packages/adapter-angular/vite.config.ts"
+      }
+    }
+  }
+}

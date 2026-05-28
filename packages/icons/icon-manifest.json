@@ -1,0 +1,26 @@
+{
+  "packs": [
+    {
+      "name": "gis",
+      "output": "gis-icons.ts",
+      "icons": {
+        "layers": { "outline": "heroicons-outline:squares-2x2", "solid": "heroicons-solid:squares-2x2" },
+        "map": { "outline": "heroicons-outline:map", "solid": "heroicons-solid:map" },
+        "roads": { "outline": "material-outline:alt_route", "solid": "material-solid:alt_route" },
+        "water": { "outline": "material-outline:water", "solid": "material-solid:water" },
+        "marker": { "outline": "heroicons-outline:map-pin", "solid": "heroicons-solid:map-pin" },
+        "wms": { "outline": "material-outline:layers", "solid": "material-solid:layers" },
+        "tile": { "outline": "heroicons-outline:squares-plus", "solid": "heroicons-solid:squares-plus" },
+        "group": { "outline": "heroicons-outline:folder", "solid": "heroicons-solid:folder" },
+        "search": { "outline": "heroicons-outline:magnifying-glass", "solid": "heroicons-solid:magnifying-glass" },
+        "chevron": { "outline": "heroicons-outline:chevron-right", "solid": "heroicons-solid:chevron-right" },
+        "opacity": { "outline": "heroicons-outline:adjustments-horizontal", "solid": "heroicons-solid:adjustments-horizontal" },
+        "error": { "outline": "heroicons-outline:exclamation-triangle", "solid": "heroicons-solid:exclamation-triangle" },
+        "eye": { "outline": "heroicons-outline:eye", "solid": "heroicons-solid:eye" },
+        "eye-off": { "outline": "heroicons-outline:eye-slash", "solid": "heroicons-solid:eye-slash" },
+        "expand": { "outline": "heroicons-outline:arrows-pointing-out", "solid": "heroicons-solid:arrows-pointing-out" },
+        "collapse": { "outline": "heroicons-outline:arrows-pointing-in", "solid": "heroicons-solid:arrows-pointing-in" }
+      }
+    }
+  ]
+}

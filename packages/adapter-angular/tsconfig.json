@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["vitest/globals"]
+  },
+  "angularCompilerOptions": {
+    "strictTemplates": true
+  },
+  "include": ["src/**/*.ts"]
+}
