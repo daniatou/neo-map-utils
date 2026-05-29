@@ -7,8 +7,8 @@ import {
   ViewChild,
   signal
 } from '@angular/core';
-import { LeafletLayerAdapter, LayerPanelComponent } from '@neo-layers-panel/adapter-angular';
-import type { LayerAdapter, LayerPanelConfig } from '@neo-layers-panel/core';
+import { LeafletLayerAdapter, LayerPanelComponent } from '@neo-maps/leaflet-layer-panel-angular';
+import type { LayerAdapter, LayerPanelConfig } from '@neo-maps/leaflet-layer-panel';
 import * as L from 'leaflet';
 
 type DemoGeometry =

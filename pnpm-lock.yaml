@@ -119,24 +119,27 @@ importers:
         version: 3.2.4(@types/node@22.19.19)(jiti@2.7.0)(less@4.6.4)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.43.1)(yaml@2.9.0)
 
   packages/adapter-angular:
-    devDependencies:
-      '@neo-layers-panel/core':
-        specifier: workspace:*
-        version: link:../core
-      '@neo-layers-panel/icons':
-        specifier: workspace:*
+    dependencies:
+      '@neo-maps/layer-panel-icons':
+        specifier: 0.1.0
         version: link:../icons
+      '@neo-maps/layer-panel-theme':
+        specifier: 0.1.0
+        version: link:../theme
+      '@neo-maps/leaflet-layer-panel':
+        specifier: 0.1.0
+        version: link:../core
 
   packages/adapter-react:
-    devDependencies:
-      '@neo-layers-panel/core':
-        specifier: workspace:*
+    dependencies:
+      '@neo-maps/leaflet-layer-panel':
+        specifier: 0.1.0
         version: link:../core
 
   packages/adapter-vue:
-    devDependencies:
-      '@neo-layers-panel/core':
-        specifier: workspace:*
+    dependencies:
+      '@neo-maps/leaflet-layer-panel':
+        specifier: 0.1.0
         version: link:../core
 
   packages/core: {}
@@ -146,9 +149,9 @@ importers:
   packages/theme: {}
 
   packages/ui-headless:
-    devDependencies:
-      '@neo-layers-panel/core':
-        specifier: workspace:*
+    dependencies:
+      '@neo-maps/leaflet-layer-panel':
+        specifier: 0.1.0
         version: link:../core
 
   packages/utils: {}

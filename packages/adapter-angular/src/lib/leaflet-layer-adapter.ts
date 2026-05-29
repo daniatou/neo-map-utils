@@ -1,4 +1,4 @@
-import type { LayerAdapter, LayerRecord } from '@neo-layers-panel/core';
+import type { LayerAdapter, LayerRecord } from '@neo-maps/leaflet-layer-panel';
 import type * as Leaflet from 'leaflet';
 
 type LeafletLayer = Leaflet.Layer & {

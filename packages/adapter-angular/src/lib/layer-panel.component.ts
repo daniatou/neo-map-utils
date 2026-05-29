@@ -20,7 +20,7 @@ import type {
   LayerOrderingControl,
   LayerRecord,
   LayerVisibilityControl
-} from '@neo-layers-panel/core';
+} from '@neo-maps/leaflet-layer-panel';
 import type { SimpleChanges } from '@angular/core';
 import { LlpIconComponent } from './icon.component';
 import { LayerPanelAngularService } from './layer-panel-angular.service';

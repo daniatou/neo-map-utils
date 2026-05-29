@@ -1,7 +1,8 @@
 {
-  "name": "neo-layers-panel",
+  "name": "neo-maps",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "packageManager": "pnpm@10.12.1",
   "scripts": {
     "nx": "nx",

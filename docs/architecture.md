@@ -1,6 +1,6 @@
 # Architecture
 
-`neo-layers-panel` is framework-agnostic first.
+`@neo-maps/leaflet-layer-panel` is framework-agnostic first.
 
 ## Layers
 

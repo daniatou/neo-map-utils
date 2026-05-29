@@ -1,7 +1,13 @@
 # Angular Usage
 
+```bash
+npm install leaflet @neo-maps/leaflet-layer-panel-angular
+```
+
+The Angular adapter brings the required Neo Maps runtime packages with it. Your app only needs to provide Angular and Leaflet.
+
 ```ts
-import { LayerPanelComponent } from '@neo-layers-panel/adapter-angular';
+import { LayerPanelComponent } from '@neo-maps/leaflet-layer-panel-angular';
 
 @Component({
   standalone: true,

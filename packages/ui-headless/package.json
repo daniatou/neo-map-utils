@@ -1,15 +1,19 @@
 {
-  "name": "@neo-layers-panel/ui-headless",
+  "name": "@neo-maps/layer-panel-headless",
   "version": "0.1.0",
+  "license": "MIT",
   "type": "module",
   "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "exports": {
     ".": {
       "types": "./index.d.ts",
       "import": "./index.js"
     }
   },
-  "devDependencies": {
-    "@neo-layers-panel/core": "workspace:*"
+  "dependencies": {
+    "@neo-maps/leaflet-layer-panel": "0.1.0"
   }
 }

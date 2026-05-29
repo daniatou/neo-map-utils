@@ -1,8 +1,12 @@
 {
-  "name": "@neo-layers-panel/icons",
+  "name": "@neo-maps/layer-panel-icons",
   "version": "0.1.0",
+  "license": "MIT",
   "type": "module",
   "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "exports": {
     ".": {
       "types": "./index.d.ts",

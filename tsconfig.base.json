@@ -19,14 +19,14 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "@neo-layers-panel/core": ["packages/core/src/index.ts"],
-      "@neo-layers-panel/adapter-angular": ["packages/adapter-angular/src/index.ts"],
-      "@neo-layers-panel/adapter-react": ["packages/adapter-react/src/index.ts"],
-      "@neo-layers-panel/adapter-vue": ["packages/adapter-vue/src/index.ts"],
-      "@neo-layers-panel/ui-headless": ["packages/ui-headless/src/index.ts"],
-      "@neo-layers-panel/icons": ["packages/icons/src/index.ts"],
-      "@neo-layers-panel/theme": ["packages/theme/src/index.ts"],
-      "@neo-layers-panel/utils": ["packages/utils/src/index.ts"]
+      "@neo-maps/leaflet-layer-panel": ["packages/core/src/index.ts"],
+      "@neo-maps/leaflet-layer-panel-angular": ["packages/adapter-angular/src/index.ts"],
+      "@neo-maps/leaflet-layer-panel-react": ["packages/adapter-react/src/index.ts"],
+      "@neo-maps/leaflet-layer-panel-vue": ["packages/adapter-vue/src/index.ts"],
+      "@neo-maps/layer-panel-headless": ["packages/ui-headless/src/index.ts"],
+      "@neo-maps/layer-panel-icons": ["packages/icons/src/index.ts"],
+      "@neo-maps/layer-panel-theme": ["packages/theme/src/index.ts"],
+      "@neo-maps/layer-panel-utils": ["packages/utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

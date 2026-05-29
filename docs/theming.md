@@ -3,7 +3,7 @@
 The theme package is framework-independent and based on CSS variables plus a Tailwind preset.
 
 ```ts
-import { createTheme } from '@neo-layers-panel/theme';
+import { createTheme } from '@neo-maps/layer-panel-theme';
 
 const css = createTheme({
   primary: '#2563eb',
@@ -16,7 +16,7 @@ const css = createTheme({
 ## Tailwind
 
 ```ts
-import preset from '@neo-layers-panel/theme/tailwind';
+import preset from '@neo-maps/layer-panel-theme/tailwind';
 
 export default {
   presets: [preset]

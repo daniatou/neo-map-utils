@@ -45,16 +45,32 @@ A production-oriented SDK for managing Leaflet layers:
 
 | Package | Role |
 | --- | --- |
-| `@neo-layers-panel/core` | Framework-independent layer engine, state, events, loading, and map orchestration. |
-| `@neo-layers-panel/adapter-angular` | Standalone Angular adapter and Tailwind UI. |
-| `@neo-layers-panel/adapter-react` | Placeholder React adapter surface. |
-| `@neo-layers-panel/adapter-vue` | Placeholder Vue adapter surface. |
-| `@neo-layers-panel/ui-headless` | Rendering-neutral tree models and interaction contracts. |
-| `@neo-layers-panel/icons` | Framework-independent SVG icon registry. |
-| `@neo-layers-panel/theme` | CSS variables, design tokens, theme creator, and Tailwind preset. |
-| `@neo-layers-panel/utils` | Persistence, URL sync, layer rules, query parsing, and browser-safe helpers. |
+| `@neo-maps/leaflet-layer-panel` | Framework-independent Leaflet layer engine, state, events, loading, and map orchestration. |
+| `@neo-maps/leaflet-layer-panel-angular` | Standalone Angular adapter and Tailwind UI. |
+| `@neo-maps/leaflet-layer-panel-react` | Placeholder React adapter surface. Coming soon |
+| `@neo-maps/leaflet-layer-panel-vue` | Placeholder Vue adapter surface. Coming soon |
+| `@neo-maps/layer-panel-headless` | Rendering-neutral tree models and interaction contracts. |
+| `@neo-maps/layer-panel-icons` | Framework-independent SVG icon registry. |
+| `@neo-maps/layer-panel-theme` | CSS variables, design tokens, theme creator, and Tailwind preset. |
+| `@neo-maps/layer-panel-utils` | Persistence, URL sync, layer rules, query parsing, and browser-safe helpers. |
 
 ## Quick Start
+
+Install the Angular adapter and Leaflet:
+
+```bash
+npm install leaflet @neo-maps/leaflet-layer-panel-angular
+```
+
+The Angular adapter installs the required Neo Maps packages for you:
+
+```text
+@neo-maps/leaflet-layer-panel
+@neo-maps/layer-panel-icons
+@neo-maps/layer-panel-theme
+```
+
+For local development in this monorepo:
 
 ```bash
 corepack enable
@@ -76,7 +92,7 @@ apps/demo-angular
 
 UI components never touch Leaflet directly. They call adapter services, which delegate to `LayerPanelCore`, `MapEngine`, `LayerManager`, and `LayerLoader`.
 
-See [docs/architecture.md](docs/architecture.md) and [docs/theming.md](docs/theming.md).
+See [docs/architecture.md](docs/architecture.md), [docs/theming.md](docs/theming.md), and [RELEASE_NOTES.md](RELEASE_NOTES.md).
 
 ## Roadmap
 

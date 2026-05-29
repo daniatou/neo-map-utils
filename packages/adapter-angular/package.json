@@ -1,26 +1,30 @@
 {
-  "name": "@neo-layers-panel/adapter-angular",
+  "name": "@neo-maps/leaflet-layer-panel-angular",
   "version": "0.1.0",
+  "license": "MIT",
   "type": "module",
   "sideEffects": [
     "./styles.css"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "esm2022": "./esm2022/neo-layers-panel-adapter-angular.mjs",
-      "default": "./fesm2022/neo-layers-panel-adapter-angular.mjs"
+      "esm2022": "./esm2022/neo-maps-leaflet-layer-panel-angular.mjs",
+      "default": "./fesm2022/neo-maps-leaflet-layer-panel-angular.mjs"
     }
   },
   "peerDependencies": {
     "@angular/common": "^20.0.0",
     "@angular/core": "^20.0.0",
     "@angular/platform-browser": "^20.0.0",
-    "@neo-layers-panel/core": "0.1.0",
-    "@neo-layers-panel/icons": "0.1.0"
+    "leaflet": "^1.9.0"
   },
-  "devDependencies": {
-    "@neo-layers-panel/core": "workspace:*",
-    "@neo-layers-panel/icons": "workspace:*"
+  "dependencies": {
+    "@neo-maps/leaflet-layer-panel": "0.1.0",
+    "@neo-maps/layer-panel-icons": "0.1.0",
+    "@neo-maps/layer-panel-theme": "0.1.0"
   }
 }

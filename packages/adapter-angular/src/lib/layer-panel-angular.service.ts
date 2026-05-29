@@ -7,7 +7,7 @@ import {
   type LayerPanelState,
   type Listener,
   type UnsubscribeFn
-} from '@neo-layers-panel/core';
+} from '@neo-maps/leaflet-layer-panel';
 
 @Injectable()
 export class LayerPanelAngularService {
