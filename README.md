@@ -14,11 +14,13 @@ The first module is **Leaflet Layer Panel**: a framework-agnostic layer manageme
 <p align="center">
   <img src="docs/assets/demo-layer-panel1.png" alt="Neo Maps Leaflet Layer Panel demo" width="900">
 </p>
-
 <p align="center">
-  <img src="docs/assets/demo-layer-panel2.png" alt="Neo Maps layer ordering and controls" width="430">
-  <img src="docs/assets/demo-layer-panel3.jpg" alt="Neo Maps Leaflet map integration" width="430">
+  <img src="docs/assets/demo-layer-panel2.jpg" alt="Neo Maps Leaflet Layer Panel demo dark mode" width="900">
 </p>
+<p align="center">
+  <img src="docs/assets/demo-layer-panel3.jpg" alt="Neo Maps Leaflet Layer Panel demo sorting mode" width="900">
+</p>
+
 
 ## Current Module
 
