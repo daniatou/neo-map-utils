@@ -1,19 +1,56 @@
-# Neo Layers Panel
+# Neo Maps
 
-A framework-agnostic SDK ecosystem for building production GIS layer panels on top of Leaflet.
+[![Nx](https://img.shields.io/badge/Nx-monorepo-143055?logo=nx&logoColor=white)](https://nx.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Angular](https://img.shields.io/badge/Angular-standalone-c3002f?logo=angular&logoColor=white)](https://angular.dev)
+[![Leaflet](https://img.shields.io/badge/Leaflet-GIS-199900?logo=leaflet&logoColor=white)](https://leafletjs.com)
+[![pnpm](https://img.shields.io/badge/pnpm-workspace-f69220?logo=pnpm&logoColor=white)](https://pnpm.io)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-The core package owns all business logic, state, events, loading, and map orchestration. Framework packages are thin adapters that render UI and connect user interaction back to the SDK.
+**Neo Maps** is a modular open-source ecosystem for building GIS frontend SDKs.
+
+The first module is **Leaflet Layer Panel**: a framework-agnostic layer management system for Leaflet with Angular as the first adapter implementation. The architecture is designed so future modules can live beside it.
+
+<p align="center">
+  <img src="docs/assets/demo-layer-panel1.png" alt="Neo Maps Leaflet Layer Panel demo" width="900">
+</p>
+
+<p align="center">
+  <img src="docs/assets/demo-layer-panel2.png" alt="Neo Maps layer ordering and controls" width="430">
+  <img src="docs/assets/demo-layer-panel3.jpg" alt="Neo Maps Leaflet map integration" width="430">
+</p>
+
+## Current Module
+
+### Leaflet Layer Panel
+
+A production-oriented SDK for managing Leaflet layers:
+
+- grouped overlay panels
+- base layer selection
+- visibility toggles
+- opacity controls
+- search and filtering
+- lazy loading
+- URL synchronization
+- local storage persistence
+- layer ordering
+- SVG icon registry
+- shared theming with CSS variables and Tailwind tokens
+- Angular adapter, with React and Vue placeholders
 
 ## Packages
 
-- `@neo-layers-panel/core` - framework-independent layer engine.
-- `@neo-layers-panel/adapter-angular` - standalone Angular adapter and Tailwind UI.
-- `@neo-layers-panel/adapter-react` - placeholder adapter surface.
-- `@neo-layers-panel/adapter-vue` - placeholder adapter surface.
-- `@neo-layers-panel/ui-headless` - rendering-neutral tree and interaction contracts.
-- `@neo-layers-panel/icons` - SVG icon registry.
-- `@neo-layers-panel/theme` - CSS variables, tokens, theme creator, and Tailwind preset.
-- `@neo-layers-panel/utils` - persistence, URL sync, rules, and browser-safe helpers.
+| Package | Role |
+| --- | --- |
+| `@neo-layers-panel/core` | Framework-independent layer engine, state, events, loading, and map orchestration. |
+| `@neo-layers-panel/adapter-angular` | Standalone Angular adapter and Tailwind UI. |
+| `@neo-layers-panel/adapter-react` | Placeholder React adapter surface. |
+| `@neo-layers-panel/adapter-vue` | Placeholder Vue adapter surface. |
+| `@neo-layers-panel/ui-headless` | Rendering-neutral tree models and interaction contracts. |
+| `@neo-layers-panel/icons` | Framework-independent SVG icon registry. |
+| `@neo-layers-panel/theme` | CSS variables, design tokens, theme creator, and Tailwind preset. |
+| `@neo-layers-panel/utils` | Persistence, URL sync, layer rules, query parsing, and browser-safe helpers. |
 
 ## Quick Start
 
@@ -38,3 +75,11 @@ apps/demo-angular
 UI components never touch Leaflet directly. They call adapter services, which delegate to `LayerPanelCore`, `MapEngine`, `LayerManager`, and `LayerLoader`.
 
 See [docs/architecture.md](docs/architecture.md) and [docs/theming.md](docs/theming.md).
+
+## Roadmap
+
+- stabilize the Leaflet Layer Panel API
+- publish packages independently
+- complete React and Vue adapters
+- add more Neo Maps modules around common GIS workflows
+- prepare semantic versioning and release automation
