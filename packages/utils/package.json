@@ -1,5 +1,5 @@
 {
-  "name": "@leaflet-layer-panel/utils",
+  "name": "@neo-layers-panel/utils",
   "version": "0.1.0",
   "type": "module",
   "sideEffects": false,

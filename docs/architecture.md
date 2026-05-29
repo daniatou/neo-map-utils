@@ -1,6 +1,6 @@
 # Architecture
 
-`leaflet-layer-panel` is framework-agnostic first.
+`neo-layers-panel` is framework-agnostic first.
 
 ## Layers
 

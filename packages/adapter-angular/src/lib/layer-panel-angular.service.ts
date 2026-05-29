@@ -7,7 +7,7 @@ import {
   type LayerPanelState,
   type Listener,
   type UnsubscribeFn
-} from '@leaflet-layer-panel/core';
+} from '@neo-layers-panel/core';
 
 @Injectable()
 export class LayerPanelAngularService {
@@ -44,6 +44,22 @@ export class LayerPanelAngularService {
 
   setOpacity(id: string, value: number): void {
     this.requireCore().setOpacity(id, value);
+  }
+
+  reorderLayer(layerId: string, targetLayerId: string): void {
+    this.requireCore().reorderLayer(layerId, targetLayerId);
+  }
+
+  moveLayerUp(layerId: string): void {
+    this.requireCore().moveLayerUp(layerId);
+  }
+
+  moveLayerDown(layerId: string): void {
+    this.requireCore().moveLayerDown(layerId);
+  }
+
+  setLayerOrder(layerOrder: readonly string[]): void {
+    this.requireCore().setLayerOrder(layerOrder);
   }
 
   expandGroup(id: string): void {

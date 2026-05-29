@@ -1,5 +1,5 @@
 {
-  "name": "@leaflet-layer-panel/icons",
+  "name": "@neo-layers-panel/icons",
   "version": "0.1.0",
   "type": "module",
   "sideEffects": false,

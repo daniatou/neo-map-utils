@@ -1,5 +1,5 @@
 {
-  "name": "@leaflet-layer-panel/core",
+  "name": "@neo-layers-panel/core",
   "version": "0.1.0",
   "type": "module",
   "sideEffects": false,

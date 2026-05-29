@@ -1,7 +1,7 @@
 # Angular Usage
 
 ```ts
-import { LayerPanelComponent } from '@leaflet-layer-panel/adapter-angular';
+import { LayerPanelComponent } from '@neo-layers-panel/adapter-angular';
 
 @Component({
   standalone: true,

@@ -1,5 +1,5 @@
 {
-  "name": "@leaflet-layer-panel/adapter-angular",
+  "name": "@neo-layers-panel/adapter-angular",
   "version": "0.1.0",
   "type": "module",
   "sideEffects": [
@@ -8,19 +8,19 @@
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "esm2022": "./esm2022/leaflet-layer-panel-adapter-angular.mjs",
-      "default": "./fesm2022/leaflet-layer-panel-adapter-angular.mjs"
+      "esm2022": "./esm2022/neo-layers-panel-adapter-angular.mjs",
+      "default": "./fesm2022/neo-layers-panel-adapter-angular.mjs"
     }
   },
   "peerDependencies": {
     "@angular/common": "^20.0.0",
     "@angular/core": "^20.0.0",
     "@angular/platform-browser": "^20.0.0",
-    "@leaflet-layer-panel/core": "0.1.0",
-    "@leaflet-layer-panel/icons": "0.1.0"
+    "@neo-layers-panel/core": "0.1.0",
+    "@neo-layers-panel/icons": "0.1.0"
   },
   "devDependencies": {
-    "@leaflet-layer-panel/core": "workspace:*",
-    "@leaflet-layer-panel/icons": "workspace:*"
+    "@neo-layers-panel/core": "workspace:*",
+    "@neo-layers-panel/icons": "workspace:*"
   }
 }

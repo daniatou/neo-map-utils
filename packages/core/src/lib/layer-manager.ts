@@ -2,6 +2,7 @@ import type { LayerGroup, LayerItem, LayerPanelState, LayerRecord } from './mode
 
 export function createInitialState(groups: readonly LayerGroup[]): LayerPanelState {
   const layers: Record<string, LayerRecord> = {};
+  const layerOrder: string[] = [];
   const expandedGroups: Record<string, boolean> = {};
   let activeBaseLayerId: string | undefined;
 
@@ -19,6 +20,9 @@ export function createInitialState(groups: readonly LayerGroup[]): LayerPanelSta
       } else {
         layers[record.id] = record;
       }
+      if (record.kind !== 'base') {
+        layerOrder.push(record.id);
+      }
     }
     for (const child of group.children ?? []) {
       visit(child);
@@ -29,7 +33,7 @@ export function createInitialState(groups: readonly LayerGroup[]): LayerPanelSta
     visit(group);
   }
 
-  return { layers, groups, expandedGroups, activeBaseLayerId, search: '', errors: {} };
+  return { layers, groups, expandedGroups, activeBaseLayerId, layerOrder, search: '', errors: {} };
 }
 
 export function normalizeLayer(layer: LayerItem): LayerRecord {

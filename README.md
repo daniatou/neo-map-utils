@@ -1,4 +1,4 @@
-# Leaflet Layer Panel
+# Neo Layers Panel
 
 A framework-agnostic SDK ecosystem for building production GIS layer panels on top of Leaflet.
 
@@ -6,14 +6,14 @@ The core package owns all business logic, state, events, loading, and map orches
 
 ## Packages
 
-- `@leaflet-layer-panel/core` - framework-independent layer engine.
-- `@leaflet-layer-panel/adapter-angular` - standalone Angular adapter and Tailwind UI.
-- `@leaflet-layer-panel/adapter-react` - placeholder adapter surface.
-- `@leaflet-layer-panel/adapter-vue` - placeholder adapter surface.
-- `@leaflet-layer-panel/ui-headless` - rendering-neutral tree and interaction contracts.
-- `@leaflet-layer-panel/icons` - SVG icon registry.
-- `@leaflet-layer-panel/theme` - CSS variables, tokens, theme creator, and Tailwind preset.
-- `@leaflet-layer-panel/utils` - persistence, URL sync, rules, and browser-safe helpers.
+- `@neo-layers-panel/core` - framework-independent layer engine.
+- `@neo-layers-panel/adapter-angular` - standalone Angular adapter and Tailwind UI.
+- `@neo-layers-panel/adapter-react` - placeholder adapter surface.
+- `@neo-layers-panel/adapter-vue` - placeholder adapter surface.
+- `@neo-layers-panel/ui-headless` - rendering-neutral tree and interaction contracts.
+- `@neo-layers-panel/icons` - SVG icon registry.
+- `@neo-layers-panel/theme` - CSS variables, tokens, theme creator, and Tailwind preset.
+- `@neo-layers-panel/utils` - persistence, URL sync, rules, and browser-safe helpers.
 
 ## Quick Start
 

@@ -1,4 +1,4 @@
-import type { LayerAdapter, LayerRecord } from '@leaflet-layer-panel/core';
+import type { LayerAdapter, LayerRecord } from '@neo-layers-panel/core';
 import type * as Leaflet from 'leaflet';
 
 type LeafletLayer = Leaflet.Layer & {
@@ -12,6 +12,7 @@ type LeafletLayer = Leaflet.Layer & {
 export class LeafletLayerAdapter implements LayerAdapter {
   private readonly layers = new Map<string, LeafletLayer>();
   private readonly layerRecords = new Map<string, LayerRecord>();
+  private layerOrder: readonly string[] = [];
 
   constructor(private readonly map: Leaflet.Map) {}
 
@@ -26,6 +27,7 @@ export class LeafletLayerAdapter implements LayerAdapter {
     if (layer.visible && !this.map.hasLayer(leafletLayer)) {
       leafletLayer.addTo(this.map);
       this.applyLayerOrder(layer, leafletLayer);
+      this.reorderVisibleLayers();
     }
   }
 
@@ -62,6 +64,11 @@ export class LeafletLayerAdapter implements LayerAdapter {
     leafletLayer?.setStyle?.({ opacity, fillOpacity: opacity });
   }
 
+  setLayerOrder(layerOrder: readonly string[]): void {
+    this.layerOrder = layerOrder;
+    this.reorderVisibleLayers();
+  }
+
   private resolveLayer(layer: LayerRecord): LeafletLayer | undefined {
     return (layer.resolvedLayer ?? layer.layer) as LeafletLayer | undefined;
   }
@@ -73,7 +80,9 @@ export class LeafletLayerAdapter implements LayerAdapter {
       return;
     }
 
-    const zIndex = layer.type === 'wms' || layer.type === 'tile' ? 450 : 650;
+    const orderIndex = this.layerOrder.indexOf(layer.id);
+    const orderOffset = orderIndex >= 0 ? orderIndex : this.layerOrder.length;
+    const zIndex = 450 + (this.layerOrder.length - orderOffset) * 10;
     leafletLayer.setZIndex?.(zIndex);
     leafletLayer.bringToFront?.();
   }
@@ -84,7 +93,15 @@ export class LeafletLayerAdapter implements LayerAdapter {
         continue;
       }
       const layer = this.findLayerRecord(id);
-      if (layer) {
+      if (layer?.kind === 'base') {
+        this.applyLayerOrder(layer, leafletLayer);
+      }
+    }
+
+    for (const id of [...this.layerOrder].reverse()) {
+      const leafletLayer = this.layers.get(id);
+      const layer = this.findLayerRecord(id);
+      if (leafletLayer && layer && this.map.hasLayer(leafletLayer)) {
         this.applyLayerOrder(layer, leafletLayer);
       }
     }

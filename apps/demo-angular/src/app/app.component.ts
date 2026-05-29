@@ -7,8 +7,8 @@ import {
   ViewChild,
   signal
 } from '@angular/core';
-import { LeafletLayerAdapter, LayerPanelComponent } from '@leaflet-layer-panel/adapter-angular';
-import type { LayerAdapter, LayerPanelConfig } from '@leaflet-layer-panel/core';
+import { LeafletLayerAdapter, LayerPanelComponent } from '@neo-layers-panel/adapter-angular';
+import type { LayerAdapter, LayerPanelConfig } from '@neo-layers-panel/core';
 import * as L from 'leaflet';
 
 type DemoGeometry =
@@ -48,6 +48,9 @@ export class DemoAppComponent implements AfterViewInit, OnDestroy {
       showOpacity: true,
       showGlobalVisibilityActions: true,
       showGroupExpansionAction: true,
+      enableOrdering: true,
+      orderingControl: 'buttons',
+      orderingMode: 'dedicated-view',
       visibilityControl: 'eye',
       baseLayerControl: 'select',
       density: 'comfortable',
@@ -63,7 +66,11 @@ export class DemoAppComponent implements AfterViewInit, OnDestroy {
         showAll: 'Tout afficher',
         hideAll: 'Tout cacher',
         expandAll: 'Tout ouvrir',
-        collapseAll: 'Tout fermer'
+        collapseAll: 'Tout fermer',
+        editOrder: "Modifier l'ordre",
+        finishEditOrder: "Terminer l'ordre",
+        orderViewTitle: "Ordre d'affichage",
+        backToLayers: 'Couches'
       }
     },
     groups: [

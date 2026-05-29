@@ -1,4 +1,4 @@
-import type { LayerGroup, LayerPanelState } from '@leaflet-layer-panel/core';
+import type { LayerGroup, LayerPanelState } from '@neo-layers-panel/core';
 
 export interface LayerTreeNode {
   readonly id: string;

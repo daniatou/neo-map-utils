@@ -36,7 +36,8 @@ export class LayerPanelCore {
     const record = normalizeLayer(layer);
     const state = this.store.update((current) => ({
       ...current,
-      layers: { ...current.layers, [record.id]: record }
+      layers: { ...current.layers, [record.id]: record },
+      layerOrder: record.kind === 'base' ? current.layerOrder : [...current.layerOrder, record.id]
     }));
     this.emit({ type: 'layer:added', payload: { layer: record } }, state);
   }
@@ -48,7 +49,7 @@ export class LayerPanelCore {
     }
     const state = this.store.update((current) => {
       const { [id]: _removed, ...layers } = current.layers;
-      return { ...current, layers };
+      return { ...current, layers, layerOrder: current.layerOrder.filter((layerId) => layerId !== id) };
     });
     void this.mapEngine.remove(existing);
     this.emit({ type: 'layer:removed', payload: { layerId: id } }, state);
@@ -131,6 +132,60 @@ export class LayerPanelCore {
     }));
     void this.mapEngine.setOpacity(next, opacity);
     this.emit({ type: 'layer:opacity-changed', payload: { layerId: id, opacity } }, state);
+  }
+
+  reorderLayer(layerId: string, targetLayerId: string): void {
+    if (layerId === targetLayerId) {
+      return;
+    }
+    const currentOrder = this.store.snapshot().layerOrder;
+    if (!currentOrder.includes(layerId) || !currentOrder.includes(targetLayerId)) {
+      return;
+    }
+    const withoutDragged = currentOrder.filter((id) => id !== layerId);
+    const targetIndex = withoutDragged.indexOf(targetLayerId);
+    const layerOrder = [
+      ...withoutDragged.slice(0, targetIndex),
+      layerId,
+      ...withoutDragged.slice(targetIndex)
+    ];
+    this.setLayerOrder(layerOrder);
+  }
+
+  moveLayerUp(layerId: string): void {
+    this.moveLayerBy(layerId, -1);
+  }
+
+  moveLayerDown(layerId: string): void {
+    this.moveLayerBy(layerId, 1);
+  }
+
+  setLayerOrder(layerOrder: readonly string[]): void {
+    const overlayIds = new Set(
+      Object.values(this.store.snapshot().layers)
+        .filter((layer) => layer.kind !== 'base')
+        .map((layer) => layer.id)
+    );
+    const nextOrder = [...new Set(layerOrder)].filter((id) => overlayIds.has(id));
+    for (const id of overlayIds) {
+      if (!nextOrder.includes(id)) {
+        nextOrder.push(id);
+      }
+    }
+    const state = this.store.update((current) => ({ ...current, layerOrder: nextOrder }));
+    void this.mapEngine.setLayerOrder(nextOrder);
+    this.emit({ type: 'layer:order-changed', payload: { layerOrder: nextOrder } }, state);
+  }
+
+  private moveLayerBy(layerId: string, direction: -1 | 1): void {
+    const currentOrder = [...this.store.snapshot().layerOrder];
+    const index = currentOrder.indexOf(layerId);
+    const nextIndex = index + direction;
+    if (index < 0 || nextIndex < 0 || nextIndex >= currentOrder.length) {
+      return;
+    }
+    [currentOrder[index], currentOrder[nextIndex]] = [currentOrder[nextIndex], currentOrder[index]];
+    this.setLayerOrder(currentOrder);
   }
 
   expandGroup(id: string): void {
@@ -229,5 +284,6 @@ export class LayerPanelCore {
         void this.mapEngine.setVisible(layer, true);
       }
     }
+    void this.mapEngine.setLayerOrder(this.store.snapshot().layerOrder);
   }
 }

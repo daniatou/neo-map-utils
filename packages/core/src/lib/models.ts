@@ -4,6 +4,8 @@ export type LayerPanelDensity = 'comfortable' | 'compact';
 export type LayerVisibilityControl = 'eye' | 'checkbox';
 export type BaseLayerControl = 'select' | 'radio' | 'hidden';
 export type LayerPanelLayout = 'sidebar' | 'floating';
+export type LayerOrderingControl = 'buttons' | 'drag' | 'both';
+export type LayerOrderingMode = 'inline' | 'dedicated-view';
 
 export interface LayerPanelConfig {
   readonly groups: readonly LayerGroup[];
@@ -24,6 +26,9 @@ export interface LayerPanelUiConfig {
   readonly showOpacity?: boolean;
   readonly showGlobalVisibilityActions?: boolean;
   readonly showGroupExpansionAction?: boolean;
+  readonly enableOrdering?: boolean;
+  readonly orderingControl?: LayerOrderingControl;
+  readonly orderingMode?: LayerOrderingMode;
   readonly visibilityControl?: LayerVisibilityControl;
   readonly baseLayerControl?: BaseLayerControl;
   readonly density?: LayerPanelDensity;
@@ -44,6 +49,10 @@ export interface LayerPanelLabels {
   readonly hideAll?: string;
   readonly expandAll?: string;
   readonly collapseAll?: string;
+  readonly editOrder?: string;
+  readonly finishEditOrder?: string;
+  readonly orderViewTitle?: string;
+  readonly backToLayers?: string;
 }
 
 export interface LayerGroup {
@@ -85,6 +94,7 @@ export interface LayerPanelState {
   readonly groups: readonly LayerGroup[];
   readonly expandedGroups: Readonly<Record<string, boolean>>;
   readonly activeBaseLayerId?: string;
+  readonly layerOrder: readonly string[];
   readonly search: string;
   readonly errors: Readonly<Record<string, string>>;
 }
@@ -107,6 +117,10 @@ export type LayerPanelEvent =
       readonly type: 'layer:opacity-changed';
       readonly payload: { readonly layerId: string; readonly opacity: number };
     }
+  | {
+      readonly type: 'layer:order-changed';
+      readonly payload: { readonly layerOrder: readonly string[] };
+    }
   | { readonly type: 'layer:loading'; readonly payload: { readonly layerId: string } }
   | { readonly type: 'layer:loaded'; readonly payload: { readonly layerId: string; layer: unknown } }
   | {
@@ -124,6 +138,7 @@ export interface LayerAdapter {
   setOpacity(layer: LayerRecord, opacity: number): void | Promise<void>;
   addLayer(layer: LayerRecord): void | Promise<void>;
   removeLayer(layer: LayerRecord): void | Promise<void>;
+  setLayerOrder?(layerOrder: readonly string[]): void | Promise<void>;
 }
 
 export interface LayerLoaderResult {

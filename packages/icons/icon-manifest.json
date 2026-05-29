@@ -19,7 +19,11 @@
         "eye": { "outline": "heroicons-outline:eye", "solid": "heroicons-solid:eye" },
         "eye-off": { "outline": "heroicons-outline:eye-slash", "solid": "heroicons-solid:eye-slash" },
         "expand": { "outline": "heroicons-outline:arrows-pointing-out", "solid": "heroicons-solid:arrows-pointing-out" },
-        "collapse": { "outline": "heroicons-outline:arrows-pointing-in", "solid": "heroicons-solid:arrows-pointing-in" }
+        "collapse": { "outline": "heroicons-outline:arrows-pointing-in", "solid": "heroicons-solid:arrows-pointing-in" },
+        "order": { "outline": "heroicons-outline:arrows-up-down", "solid": "heroicons-solid:arrows-up-down" },
+        "drag": { "outline": "heroicons-outline:ellipsis-vertical", "solid": "heroicons-solid:ellipsis-vertical" },
+        "arrow-up": { "outline": "heroicons-outline:arrow-up", "solid": "heroicons-solid:arrow-up" },
+        "arrow-down": { "outline": "heroicons-outline:arrow-down", "solid": "heroicons-solid:arrow-down" }
       }
     }
   ]

@@ -1,4 +1,14 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, computed, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  HostListener,
+  Input,
+  OnChanges,
+  computed,
+  inject,
+  signal
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import type {
   BaseLayerControl,
@@ -6,9 +16,11 @@ import type {
   LayerGroup,
   LayerPanelConfig,
   LayerPanelLayout,
+  LayerOrderingMode,
+  LayerOrderingControl,
   LayerRecord,
   LayerVisibilityControl
-} from '@leaflet-layer-panel/core';
+} from '@neo-layers-panel/core';
 import type { SimpleChanges } from '@angular/core';
 import { LlpIconComponent } from './icon.component';
 import { LayerPanelAngularService } from './layer-panel-angular.service';
@@ -18,6 +30,9 @@ interface ResolvedLayerPanelUi {
   readonly showOpacity: boolean;
   readonly showGlobalVisibilityActions: boolean;
   readonly showGroupExpansionAction: boolean;
+  readonly enableOrdering: boolean;
+  readonly orderingControl: LayerOrderingControl;
+  readonly orderingMode: LayerOrderingMode;
   readonly visibilityControl: LayerVisibilityControl;
   readonly baseLayerControl: BaseLayerControl;
   readonly density: 'comfortable' | 'compact';
@@ -35,6 +50,10 @@ interface ResolvedLayerPanelUi {
     readonly hideAll: string;
     readonly expandAll: string;
     readonly collapseAll: string;
+    readonly editOrder: string;
+    readonly finishEditOrder: string;
+    readonly orderViewTitle: string;
+    readonly backToLayers: string;
   };
 }
 
@@ -53,7 +72,12 @@ export class LayerPanelComponent implements OnChanges {
   @Input() variant: 'default' | 'compact' | 'enterprise' | 'floating' | 'minimal' = 'default';
 
   readonly panel = inject(LayerPanelAngularService);
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   readonly state = this.panel.state;
+  readonly orderingEnabled = signal(false);
+  readonly activeView = signal<'layers' | 'order'>('layers');
+  readonly draggedLayerId = signal<string | undefined>(undefined);
+  readonly baseLayerSelectOpen = signal(false);
   readonly groups = computed(() => this.state()?.groups ?? []);
   readonly baseLayers = computed(() =>
     Object.values(this.state()?.layers ?? {}).filter((layer) => layer.kind === 'base')
@@ -65,6 +89,9 @@ export class LayerPanelComponent implements OnChanges {
       showOpacity: this.config.ui?.showOpacity ?? true,
       showGlobalVisibilityActions: this.config.ui?.showGlobalVisibilityActions ?? true,
       showGroupExpansionAction: this.config.ui?.showGroupExpansionAction ?? true,
+      enableOrdering: this.config.ui?.enableOrdering ?? false,
+      orderingControl: this.config.ui?.orderingControl ?? 'buttons',
+      orderingMode: this.config.ui?.orderingMode ?? 'dedicated-view',
       visibilityControl: this.config.ui?.visibilityControl ?? 'eye',
       baseLayerControl: this.config.ui?.baseLayerControl ?? 'select',
       density: this.config.ui?.density ?? 'comfortable',
@@ -81,7 +108,11 @@ export class LayerPanelComponent implements OnChanges {
         showAll: labels.showAll ?? 'Show all',
         hideAll: labels.hideAll ?? 'Hide all',
         expandAll: labels.expandAll ?? 'Expand all',
-        collapseAll: labels.collapseAll ?? 'Collapse all'
+        collapseAll: labels.collapseAll ?? 'Collapse all',
+        editOrder: labels.editOrder ?? 'Edit order',
+        finishEditOrder: labels.finishEditOrder ?? 'Finish ordering',
+        orderViewTitle: labels.orderViewTitle ?? "Ordre d'affichage",
+        backToLayers: labels.backToLayers ?? 'Back to layers'
       }
     };
   });
@@ -130,6 +161,23 @@ export class LayerPanelComponent implements OnChanges {
 
   setAllVisible(visible: boolean): void {
     this.panel.setLayerVisibilityMany(this.allOverlayLayerIds(), visible);
+  }
+
+  toggleOrdering(): void {
+    if (this.resolvedUi().orderingMode === 'dedicated-view') {
+      this.activeView.set(this.activeView() === 'order' ? 'layers' : 'order');
+      this.orderingEnabled.set(this.activeView() === 'order');
+    } else {
+      this.orderingEnabled.update((enabled) => !enabled);
+    }
+    this.draggedLayerId.set(undefined);
+  }
+
+  @HostListener('document:click', ['$event'])
+  closeFloatingControls(event: MouseEvent): void {
+    if (!this.host.nativeElement.contains(event.target as Node)) {
+      this.baseLayerSelectOpen.set(false);
+    }
   }
 
   areAllOverlaysVisible(): boolean {
@@ -190,6 +238,88 @@ export class LayerPanelComponent implements OnChanges {
     this.panel.setLayerVisible(layerId, checked);
   }
 
+  orderedGroupLayers(group: LayerGroup): readonly { readonly id: string }[] {
+    const order = this.state()?.layerOrder ?? [];
+    return [...group.layers].sort((first, second) => {
+      const firstIndex = order.indexOf(first.id);
+      const secondIndex = order.indexOf(second.id);
+      return normalizeOrderIndex(firstIndex) - normalizeOrderIndex(secondIndex);
+    });
+  }
+
+  orderedOverlayLayers(): readonly LayerRecord[] {
+    const state = this.state();
+    if (!state) {
+      return [];
+    }
+    return state.layerOrder.map((layerId) => state.layers[layerId]).filter((layer) => Boolean(layer));
+  }
+
+  groupNameForLayer(layerId: string): string {
+    const group = this.groups().find((candidate) => collectLayerIds(candidate).includes(layerId));
+    return group?.name ?? '';
+  }
+
+  canMoveLayerUp(layerId: string): boolean {
+    const index = this.state()?.layerOrder.indexOf(layerId) ?? -1;
+    return index > 0;
+  }
+
+  canMoveLayerDown(layerId: string): boolean {
+    const order = this.state()?.layerOrder ?? [];
+    const index = order.indexOf(layerId);
+    return index >= 0 && index < order.length - 1;
+  }
+
+  showOrderingButtons(): boolean {
+    return (
+      this.resolvedUi().orderingMode === 'inline' &&
+      this.orderingEnabled() &&
+      ['buttons', 'both'].includes(this.resolvedUi().orderingControl)
+    );
+  }
+
+  showDragHandle(): boolean {
+    return (
+      this.resolvedUi().orderingMode === 'inline' &&
+      this.orderingEnabled() &&
+      ['drag', 'both'].includes(this.resolvedUi().orderingControl)
+    );
+  }
+
+  onLayerDragStart(layerId: string, event: DragEvent): void {
+    if (!this.resolvedUi().enableOrdering || !this.orderingEnabled()) {
+      return;
+    }
+    this.draggedLayerId.set(layerId);
+    event.dataTransfer?.setData('text/plain', layerId);
+    if (event.dataTransfer) {
+      event.dataTransfer.effectAllowed = 'move';
+    }
+  }
+
+  onLayerDragOver(event: DragEvent): void {
+    if (!this.resolvedUi().enableOrdering || !this.orderingEnabled()) {
+      return;
+    }
+    event.preventDefault();
+    if (event.dataTransfer) {
+      event.dataTransfer.dropEffect = 'move';
+    }
+  }
+
+  onLayerDrop(targetLayerId: string, event: DragEvent): void {
+    if (!this.resolvedUi().enableOrdering || !this.orderingEnabled()) {
+      return;
+    }
+    event.preventDefault();
+    const draggedLayerId = this.draggedLayerId() ?? event.dataTransfer?.getData('text/plain');
+    if (draggedLayerId) {
+      this.panel.reorderLayer(draggedLayerId, targetLayerId);
+    }
+    this.draggedLayerId.set(undefined);
+  }
+
   onBaseLayerRadio(layerId: string): void {
     this.panel.setBaseLayer(layerId);
   }
@@ -199,6 +329,21 @@ export class LayerPanelComponent implements OnChanges {
     if (layerId) {
       this.panel.setBaseLayer(layerId);
     }
+  }
+
+  toggleBaseLayerSelect(event: Event): void {
+    event.stopPropagation();
+    this.baseLayerSelectOpen.update((open) => !open);
+  }
+
+  selectBaseLayer(layerId: string, event: Event): void {
+    event.stopPropagation();
+    this.panel.setBaseLayer(layerId);
+    this.baseLayerSelectOpen.set(false);
+  }
+
+  activeBaseLayer(): LayerRecord | undefined {
+    return this.baseLayers().find((layer) => layer.id === this.activeBaseLayerId());
   }
 
   isBaseLayer(layer: LayerRecord): boolean {
@@ -270,4 +415,8 @@ function collectLayerIds(group: LayerGroup): readonly string[] {
 
 function collectGroupIds(group: LayerGroup): readonly string[] {
   return [group.id, ...(group.children ?? []).flatMap((child) => collectGroupIds(child))];
+}
+
+function normalizeOrderIndex(index: number): number {
+  return index === -1 ? Number.MAX_SAFE_INTEGER : index;
 }

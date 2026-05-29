@@ -1,5 +1,5 @@
 {
-  "name": "@leaflet-layer-panel/adapter-react",
+  "name": "@neo-layers-panel/adapter-react",
   "version": "0.1.0",
   "type": "module",
   "sideEffects": false,
@@ -10,9 +10,9 @@
     }
   },
   "peerDependencies": {
-    "@leaflet-layer-panel/core": "0.1.0"
+    "@neo-layers-panel/core": "0.1.0"
   },
   "devDependencies": {
-    "@leaflet-layer-panel/core": "workspace:*"
+    "@neo-layers-panel/core": "workspace:*"
   }
 }

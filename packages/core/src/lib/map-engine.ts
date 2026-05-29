@@ -25,4 +25,8 @@ export class MapEngine {
   async setOpacity(layer: LayerRecord, opacity: number): Promise<void> {
     await this.adapter.setOpacity(layer, opacity);
   }
+
+  async setLayerOrder(layerOrder: readonly string[]): Promise<void> {
+    await this.adapter.setLayerOrder?.(layerOrder);
+  }
 }

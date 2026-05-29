@@ -1,5 +1,5 @@
 {
-  "name": "@leaflet-layer-panel/ui-headless",
+  "name": "@neo-layers-panel/ui-headless",
   "version": "0.1.0",
   "type": "module",
   "sideEffects": false,
@@ -10,6 +10,6 @@
     }
   },
   "devDependencies": {
-    "@leaflet-layer-panel/core": "workspace:*"
+    "@neo-layers-panel/core": "workspace:*"
   }
 }

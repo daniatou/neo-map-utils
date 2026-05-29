@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, InjectionToken, Input, inject } from '@angular/core';
 import { DomSanitizer, type SafeHtml } from '@angular/platform-browser';
-import { createIconRegistry, type IconRegistry, type IconVariant } from '@leaflet-layer-panel/icons';
+import { createIconRegistry, type IconRegistry, type IconVariant } from '@neo-layers-panel/icons';
 
 export const LLP_ICON_REGISTRY = new InjectionToken<IconRegistry>('LLP_ICON_REGISTRY', {
   providedIn: 'root',

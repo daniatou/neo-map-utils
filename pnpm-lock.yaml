@@ -120,22 +120,22 @@ importers:
 
   packages/adapter-angular:
     devDependencies:
-      '@leaflet-layer-panel/core':
+      '@neo-layers-panel/core':
         specifier: workspace:*
         version: link:../core
-      '@leaflet-layer-panel/icons':
+      '@neo-layers-panel/icons':
         specifier: workspace:*
         version: link:../icons
 
   packages/adapter-react:
     devDependencies:
-      '@leaflet-layer-panel/core':
+      '@neo-layers-panel/core':
         specifier: workspace:*
         version: link:../core
 
   packages/adapter-vue:
     devDependencies:
-      '@leaflet-layer-panel/core':
+      '@neo-layers-panel/core':
         specifier: workspace:*
         version: link:../core
 
@@ -147,7 +147,7 @@ importers:
 
   packages/ui-headless:
     devDependencies:
-      '@leaflet-layer-panel/core':
+      '@neo-layers-panel/core':
         specifier: workspace:*
         version: link:../core
 
