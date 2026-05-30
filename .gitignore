@@ -5,3 +5,8 @@ dist
 coverage
 tmp
 .env
+website/.docusaurus
+website/build
+website/docs/api
+website/docs/guides
+website/static/img

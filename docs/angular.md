@@ -1,10 +1,16 @@
 # Angular Usage
 
+Use the Angular adapter when your application already owns the Leaflet map and you want a polished layer panel connected to the Neo Maps core.
+
+:::tip Installation
+
+The Angular adapter includes the Neo Maps runtime packages it needs. Your app still provides Angular and Leaflet.
+
+:::
+
 ```bash
 npm install leaflet @neo-maps/leaflet-layer-panel-angular
 ```
-
-The Angular adapter brings the required Neo Maps runtime packages with it. Your app only needs to provide Angular and Leaflet.
 
 Add the required styles to your global stylesheet:
 
@@ -27,6 +33,12 @@ export class MapShellComponent {}
 ```
 
 Angular components are standalone and use OnPush change detection.
+
+:::info Adapter boundary
+
+The component renders the panel and forwards user interactions. Business logic stays in `LayerPanelCore`, and Leaflet calls go through the layer adapter.
+
+:::
 
 ## Layout
 
@@ -51,3 +63,9 @@ const config: LayerPanelConfig = {
 ```
 
 The SDK controls the panel dimensions through `ui.width`, `ui.maxWidth`, `ui.height`, and `ui.maxHeight`. Positioning stays in the host layout, so Angular, React, Vue, or plain apps can decide whether the panel is a sidebar, floating card, drawer, or map overlay.
+
+:::caution Styles
+
+Do not forget the adapter stylesheet. Without it, the component still works, but it will look almost unstyled.
+
+:::

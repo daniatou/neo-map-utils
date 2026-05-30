@@ -11,6 +11,10 @@
     "build": "nx run-many -t build",
     "test": "nx run-many -t test",
     "lint": "nx run-many -t lint",
+    "docs:prepare": "node tools/build-docs.mjs --prepare-only",
+    "docs:build": "node tools/build-docs.mjs",
+    "docs:start": "node tools/build-docs.mjs --serve",
+    "docs:api": "node tools/build-docs.mjs --api-only",
     "icons:generate": "nx run icons:generate",
     "format": "prettier --write ."
   },

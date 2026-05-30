@@ -1,5 +1,6 @@
 packages:
   - "development/*"
   - "packages/*"
+  - "website"
 
 minimumReleaseAge: 1440
