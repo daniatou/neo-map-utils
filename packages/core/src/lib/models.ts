@@ -1,4 +1,4 @@
-export type LayerType = 'geojson' | 'tile' | 'wms' | 'marker';
+export type LayerType = 'geojson' | 'tile' | 'wms' | 'marker' | 'group' | 'layerGroup';
 export type LayerKind = 'base' | 'overlay';
 export type LayerPanelDensity = 'comfortable' | 'compact';
 export type LayerVisibilityControl = 'eye' | 'checkbox';

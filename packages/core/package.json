@@ -1,6 +1,6 @@
 {
   "name": "@neo-maps/leaflet-layer-panel",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Framework-agnostic Leaflet layer panel engine for Neo Maps.",
   "license": "MIT",
   "type": "module",

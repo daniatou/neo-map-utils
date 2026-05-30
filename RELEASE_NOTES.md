@@ -1,5 +1,16 @@
 # Release Notes
 
+## 0.1.6 - Developer Experience Improvements
+
+### Developer Experience
+
+- Added `@neo-maps/layer-panel-theme/styles/theme.css` as a single reliable CSS entry point for theme variables and base panel styles.
+- Updated documentation to recommend `theme.css` instead of importing split theme files.
+- Broadened Angular adapter peer dependencies to Angular 17, 18, 19, and 20.
+- Added `group` and `layerGroup` to `LayerType` for Leaflet layer group use cases.
+- Added `LayerPanelBuilder` to simplify typed layer panel configuration.
+- Expanded Angular README examples with advanced `options`, `ui`, floating layout sizing, i18n labels, and Leaflet layer group usage.
+
 ## 0.1.5 - npm Metadata Refresh
 
 - Refreshed npm metadata for the published packages.

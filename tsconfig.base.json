@@ -10,7 +10,10 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "ESNext",
-    "lib": ["ES2022", "DOM"],
+    "lib": [
+      "ES2022",
+      "DOM"
+    ],
     "skipLibCheck": true,
     "strict": true,
     "baseUrl": ".",
@@ -18,16 +21,10 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "paths": {
-      "@neo-maps/leaflet-layer-panel": ["packages/core/src/index.ts"],
-      "@neo-maps/leaflet-layer-panel-angular": ["packages/adapter-angular/src/index.ts"],
-      "@neo-maps/leaflet-layer-panel-react": ["packages/adapter-react/src/index.ts"],
-      "@neo-maps/leaflet-layer-panel-vue": ["packages/adapter-vue/src/index.ts"],
-      "@neo-maps/layer-panel-headless": ["packages/ui-headless/src/index.ts"],
-      "@neo-maps/layer-panel-icons": ["packages/icons/src/index.ts"],
-      "@neo-maps/layer-panel-theme": ["packages/theme/src/index.ts"],
-      "@neo-maps/layer-panel-utils": ["packages/utils/src/index.ts"]
-    }
+    "paths": {}
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }

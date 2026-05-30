@@ -66,7 +66,7 @@ Add the package styles:
 
 ```css
 @import 'leaflet/dist/leaflet.css';
-@import '@neo-maps/layer-panel-theme/styles/base.css';
+@import '@neo-maps/layer-panel-theme/styles/theme.css';
 @import '@neo-maps/leaflet-layer-panel-angular/styles.css';
 ```
 

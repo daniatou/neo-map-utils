@@ -8,6 +8,16 @@ Angular, React, Vue and future adapters should consume the same `--llp-*` design
 
 :::
 
+## CSS Entry Point
+
+Use the bundled theme entry point in applications:
+
+```css
+@import '@neo-maps/layer-panel-theme/styles/theme.css';
+```
+
+This file includes both the default CSS variables and the base `.llp-panel` styles. The lower-level `variables.css` and `base.css` files remain available for advanced customization.
+
 ```ts
 import { createTheme } from '@neo-maps/layer-panel-theme';
 

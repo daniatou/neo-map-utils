@@ -1,8 +1,8 @@
 @config "../../../tailwind.config.js";
 
 @import 'leaflet/dist/leaflet.css';
-@import '../../../packages/theme/src/styles/base.css';
-@import '../../../packages/adapter-angular/src/styles.css';
+@import '@neo-maps/layer-panel-theme/styles/theme.css';
+@import '@neo-maps/leaflet-layer-panel-angular/styles.css';
 
 @tailwind base;
 @tailwind components;

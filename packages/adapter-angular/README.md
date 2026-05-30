@@ -32,14 +32,16 @@ Add these imports to your global stylesheet:
 
 ```css
 @import 'leaflet/dist/leaflet.css';
-@import '@neo-maps/layer-panel-theme/styles/base.css';
+@import '@neo-maps/layer-panel-theme/styles/theme.css';
 @import '@neo-maps/leaflet-layer-panel-angular/styles.css';
 ```
+
+`theme.css` is the recommended entry point because it bundles the CSS variables and base panel styles in a single import.
 
 ## Basic Usage
 
 ```ts
-import { Component, signal } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, ViewChild, signal } from '@angular/core';
 import {
   LayerPanelComponent,
   LeafletLayerAdapter,
@@ -57,13 +59,20 @@ import * as L from 'leaflet';
       <div #mapRoot class="map"></div>
       <llp-layer-panel
         title="Layers"
+        variant="floating"
         [config]="config"
         [layerAdapter]="layerAdapter()"
       />
     </div>
-  `
+  `,
+  styles: [`
+    .map-shell { position: relative; height: 100vh; }
+    .map       { position: absolute; inset: 0; }
+  `]
 })
-export class MapComponent {
+export class MapComponent implements AfterViewInit {
+  @ViewChild('mapRoot') mapRoot!: ElementRef<HTMLDivElement>;
+
   readonly layerAdapter = signal<LayerAdapter | undefined>(undefined);
 
   readonly config: LayerPanelConfig = {
@@ -85,7 +94,8 @@ export class MapComponent {
     ]
   };
 
-  connectMap(map: L.Map): void {
+  ngAfterViewInit(): void {
+    const map = L.map(this.mapRoot.nativeElement).setView([48.85, 2.35], 12);
     this.layerAdapter.set(new LeafletLayerAdapter(map));
   }
 }
@@ -104,6 +114,106 @@ export class MapComponent {
 - dark mode ready styling
 - CSS variable based theming
 - SVG icon registry support
+
+## Advanced Configuration
+
+`LayerPanelConfig` controls runtime behavior through `options` and presentation through `ui`.
+
+```ts
+const config: LayerPanelConfig = {
+  options: {
+    lazyLoad: true,
+    cacheLoadedLayers: true,
+    urlSync: true,
+    persistState: true
+  },
+  ui: {
+    layout: 'floating',
+    width: '22rem',
+    maxWidth: 'calc(100vw - 2rem)',
+    maxHeight: 'calc(100vh - 2rem)',
+    showSearch: true,
+    showOpacity: true,
+    showGlobalVisibilityActions: true,
+    showGroupExpansionAction: true,
+    enableOrdering: true,
+    orderingMode: 'dedicated-view',
+    visibilityControl: 'eye',
+    baseLayerControl: 'select'
+  },
+  groups: []
+};
+```
+
+`layout: 'floating'` is designed for map overlays. In that mode, define `width`, `maxWidth`, and `maxHeight` so the host app controls how the panel sits above the map.
+
+## Internationalization
+
+Use `ui.labels` to translate panel copy:
+
+```ts
+const config: LayerPanelConfig = {
+  ui: {
+    labels: {
+      subtitle: 'Gestion des couches',
+      searchPlaceholder: 'Rechercher une couche',
+      baseLayer: 'Fond de carte',
+      opacity: 'Opacité',
+      showAll: 'Tout voir',
+      hideAll: 'Tout cacher',
+      expandAll: 'Tout ouvrir',
+      collapseAll: 'Tout fermer',
+      editOrder: "Modifier l'ordre",
+      finishEditOrder: 'Terminer',
+      orderViewTitle: "Ordre d'affichage",
+      backToLayers: 'Retour aux couches'
+    }
+  },
+  groups: []
+};
+```
+
+## Layer Groups
+
+Leaflet layer groups can be passed as normal layer instances:
+
+```ts
+const markers = L.layerGroup([L.marker([33.57, -7.59])]);
+
+const config: LayerPanelConfig = {
+  groups: [
+    {
+      id: 'poi',
+      name: 'Points d’intérêt',
+      layers: [
+        {
+          id: 'poi-markers',
+          name: 'Marqueurs',
+          type: 'layerGroup',
+          layer: markers,
+          visible: true
+        }
+      ]
+    }
+  ]
+};
+```
+
+You can also create configurations with the builder:
+
+```ts
+import { LayerPanelBuilder } from '@neo-maps/leaflet-layer-panel-angular';
+
+const config = new LayerPanelBuilder()
+  .addGroup({ id: 'poi', name: 'Points d’intérêt', layers: [] })
+  .addLayerGroup('poi', {
+    id: 'poi-markers',
+    name: 'Marqueurs',
+    layer: markers,
+    visible: true
+  })
+  .build();
+```
 
 ## Component API
 
@@ -152,6 +262,17 @@ You can override CSS variables globally:
   --llp-radius: 14px;
   --llp-panel: 243 244 246;
 }
+```
+
+## CSS Architecture
+
+The adapter currently ships a small CSS file for component-specific primitives and consumes the shared theme variables. The long-term package goal is to publish a fully precompiled CSS bundle so consumers do not need Tailwind at all.
+
+Until that build step is finalized, import:
+
+```css
+@import '@neo-maps/layer-panel-theme/styles/theme.css';
+@import '@neo-maps/leaflet-layer-panel-angular/styles.css';
 ```
 
 ## Showcase

@@ -15,6 +15,10 @@
     "docs:build": "node tools/build-docs.mjs",
     "docs:start": "node tools/build-docs.mjs --serve",
     "docs:api": "node tools/build-docs.mjs --api-only",
+    "dev:package-test": "node tools/dev-package-test.mjs serve",
+    "dev:package-test:prepare": "node tools/dev-package-test.mjs prepare",
+    "dev:package-test:serve": "node tools/dev-package-test.mjs serve",
+    "dev:package-test:restore": "node tools/dev-package-test.mjs restore",
     "icons:generate": "nx run icons:generate",
     "format": "prettier --write ."
   },
