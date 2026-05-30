@@ -1,10 +1,37 @@
 {
   "name": "@neo-maps/layer-panel-theme",
   "version": "0.1.2",
+  "description": "CSS variables, design tokens, and Tailwind preset for Neo Maps layer panels.",
   "license": "MIT",
   "type": "module",
   "sideEffects": [
     "./styles/*.css"
+  ],
+  "keywords": [
+    "neo-maps",
+    "leaflet",
+    "gis",
+    "theme",
+    "design-tokens",
+    "css-variables",
+    "tailwind",
+    "layer-panel",
+    "typescript"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daniatou/neo-map-utils.git",
+    "directory": "packages/theme"
+  },
+  "homepage": "https://github.com/daniatou/neo-map-utils#readme",
+  "bugs": {
+    "url": "https://github.com/daniatou/neo-map-utils/issues"
+  },
+  "files": [
+    "src",
+    "styles",
+    "README.md",
+    "package.json"
   ],
   "publishConfig": {
     "access": "public"

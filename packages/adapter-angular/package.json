@@ -1,10 +1,41 @@
 {
   "name": "@neo-maps/leaflet-layer-panel-angular",
   "version": "0.1.4",
+  "description": "Standalone Angular adapter and Leaflet UI for Neo Maps Layer Panel.",
   "license": "MIT",
   "type": "module",
   "sideEffects": [
     "./src/styles.css"
+  ],
+  "keywords": [
+    "neo-maps",
+    "leaflet",
+    "angular",
+    "standalone-components",
+    "gis",
+    "map",
+    "layers",
+    "layer-panel",
+    "layer-control",
+    "wms",
+    "geojson",
+    "typescript"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daniatou/neo-map-utils.git",
+    "directory": "packages/adapter-angular"
+  },
+  "homepage": "https://github.com/daniatou/neo-map-utils#readme",
+  "bugs": {
+    "url": "https://github.com/daniatou/neo-map-utils/issues"
+  },
+  "files": [
+    "fesm2022",
+    "index.d.ts",
+    "src/styles.css",
+    "README.md",
+    "package.json"
   ],
   "publishConfig": {
     "access": "public"

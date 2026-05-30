@@ -1,9 +1,35 @@
 {
   "name": "@neo-maps/layer-panel-icons",
   "version": "0.1.2",
+  "description": "Framework-independent SVG icon registry for Neo Maps layer panels.",
   "license": "MIT",
   "type": "module",
   "sideEffects": false,
+  "keywords": [
+    "neo-maps",
+    "leaflet",
+    "gis",
+    "map",
+    "icons",
+    "svg",
+    "icon-registry",
+    "layer-panel",
+    "typescript"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daniatou/neo-map-utils.git",
+    "directory": "packages/icons"
+  },
+  "homepage": "https://github.com/daniatou/neo-map-utils#readme",
+  "bugs": {
+    "url": "https://github.com/daniatou/neo-map-utils/issues"
+  },
+  "files": [
+    "src",
+    "README.md",
+    "package.json"
+  ],
   "publishConfig": {
     "access": "public"
   },

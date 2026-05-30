@@ -1,9 +1,37 @@
 {
   "name": "@neo-maps/leaflet-layer-panel",
   "version": "0.1.2",
+  "description": "Framework-agnostic Leaflet layer panel engine for Neo Maps.",
   "license": "MIT",
   "type": "module",
   "sideEffects": false,
+  "keywords": [
+    "neo-maps",
+    "leaflet",
+    "gis",
+    "map",
+    "layers",
+    "layer-panel",
+    "layer-control",
+    "wms",
+    "geojson",
+    "typescript",
+    "sdk"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daniatou/neo-map-utils.git",
+    "directory": "packages/core"
+  },
+  "homepage": "https://github.com/daniatou/neo-map-utils#readme",
+  "bugs": {
+    "url": "https://github.com/daniatou/neo-map-utils/issues"
+  },
+  "files": [
+    "src",
+    "README.md",
+    "package.json"
+  ],
   "publishConfig": {
     "access": "public"
   },
