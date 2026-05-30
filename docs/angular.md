@@ -6,8 +6,17 @@ npm install leaflet @neo-maps/leaflet-layer-panel-angular
 
 The Angular adapter brings the required Neo Maps runtime packages with it. Your app only needs to provide Angular and Leaflet.
 
+Add the required styles to your global stylesheet:
+
+```css
+@import 'leaflet/dist/leaflet.css';
+@import '@neo-maps/layer-panel-theme/styles/base.css';
+@import '@neo-maps/leaflet-layer-panel-angular/styles.css';
+```
+
 ```ts
-import { LayerPanelComponent } from '@neo-maps/leaflet-layer-panel-angular';
+import { Component } from '@angular/core';
+import { LayerPanelComponent, type LayerPanelConfig } from '@neo-maps/leaflet-layer-panel-angular';
 
 @Component({
   standalone: true,

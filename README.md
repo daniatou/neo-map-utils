@@ -62,6 +62,14 @@ Install the Angular adapter and Leaflet:
 npm install leaflet @neo-maps/leaflet-layer-panel-angular
 ```
 
+Add the package styles:
+
+```css
+@import 'leaflet/dist/leaflet.css';
+@import '@neo-maps/layer-panel-theme/styles/base.css';
+@import '@neo-maps/leaflet-layer-panel-angular/styles.css';
+```
+
 The Angular adapter installs the required Neo Maps packages for you:
 
 ```text
@@ -75,13 +83,30 @@ For local development in this monorepo:
 ```bash
 corepack enable
 pnpm install
-pnpm nx serve demo-angular
+pnpm nx serve demo-angular-local
 ```
+
+## Repository Layout
+
+```text
+packages/
+  SDK packages published under @neo-maps
+
+showcases/
+  user-facing examples that install Neo Maps from npm
+
+development/
+  contributor playgrounds wired to the local packages
+```
+
+`showcases` are intentionally standalone projects. They are meant for users who want to copy an example and run it like a real application.
+
+`development` is for contributors. These projects use the local workspace packages through Nx and TypeScript path aliases.
 
 ## Architecture
 
 ```text
-apps/demo-angular
+development/demo-angular-local
   -> adapter-angular
     -> core
     -> ui-headless

@@ -1,6 +1,6 @@
 {
   "name": "@neo-maps/leaflet-layer-panel-vue",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
   "type": "module",
   "sideEffects": false,
@@ -9,8 +9,8 @@
   },
   "exports": {
     ".": {
-      "types": "./index.d.ts",
-      "import": "./index.js"
+      "types": "./src/index.d.ts",
+      "import": "./src/index.js"
     }
   },
   "peerDependencies": {
@@ -18,6 +18,6 @@
     "vue": ">=3.0.0"
   },
   "dependencies": {
-    "@neo-maps/leaflet-layer-panel": "0.1.0"
+    "@neo-maps/leaflet-layer-panel": "0.1.1"
   }
 }

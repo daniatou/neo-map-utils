@@ -1,11 +1,6 @@
 module.exports = {
   darkMode: ['class', '[data-theme="dark"]'],
-  content: [
-    './development/**/*.{html,ts}',
-    './packages/adapter-angular/src/**/*.{html,ts}',
-    './src/**/*.{html,ts}',
-    '../../packages/adapter-angular/src/**/*.{html,ts}'
-  ],
+  content: ['./src/**/*.{html,ts}', './node_modules/@neo-maps/leaflet-layer-panel-angular/**/*.{mjs,js}'],
   theme: {
     extend: {
       colors: {

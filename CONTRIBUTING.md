@@ -9,7 +9,7 @@ Neo Maps is built as a modular GIS SDK ecosystem. The current module is Leaflet 
 ```bash
 corepack enable
 pnpm install
-pnpm nx serve demo-angular
+pnpm nx serve demo-angular-local
 ```
 
 ## Checks

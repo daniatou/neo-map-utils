@@ -1,5 +1,29 @@
 # Release Notes
 
+## 0.1.4 - Publishable Angular Adapter
+
+- Re-published the Angular adapter after switching to Angular Package Format.
+- Depends on corrected `0.1.2` runtime packages.
+- Intended as the first package version suitable for the npm-based Angular showcase.
+
+## 0.1.3 - Angular Package Format
+
+- Built the Angular adapter with `ng-packagr` instead of plain TypeScript compilation.
+- Fixed Angular metadata so `LayerPanelComponent` is recognized as a standalone component in consumer apps.
+- Kept the public `styles.css` export for user-facing showcase projects.
+
+## 0.1.2 - Runtime Package Export Fix
+
+- Fixed runtime package exports for the `@nx/js:tsc` output structure.
+- Updated core, icons, and theme packages to publish valid `src/index.js` entry points.
+- Fixed Angular adapter dependencies to resolve corrected runtime packages.
+
+## 0.1.1 - Showcase Packaging
+
+- Added a public `./styles.css` export to `@neo-maps/leaflet-layer-panel-angular`.
+- Re-exported common core types from the Angular adapter for simpler consumer imports.
+- Split the repository examples into npm-based `showcases/` and local contributor `development/` demos.
+
 ## 0.1.0 - Initial Preview
 
 Neo Maps starts with its first module: **Leaflet Layer Panel**, a framework-agnostic SDK for building modern GIS layer management panels on top of Leaflet.
@@ -63,7 +87,6 @@ This release is an early preview focused on architecture, package boundaries, An
 ### Known Limitations
 
 - React and Vue packages are placeholders only.
-- The package naming is still subject to final ecosystem branding before the first stable release.
 - Release automation and semantic versioning workflow are not finalized yet.
 - Accessibility can still be improved around advanced keyboard interactions for custom controls.
 

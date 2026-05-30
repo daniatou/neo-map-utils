@@ -1,20 +1,20 @@
 {
-  "name": "demo-angular",
+  "name": "demo-angular-local",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "sourceRoot": "apps/demo-angular/src",
+  "sourceRoot": "development/demo-angular-local/src",
   "tags": ["scope:demo", "type:app"],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/demo-angular",
-        "index": "apps/demo-angular/src/index.html",
-        "browser": "apps/demo-angular/src/main.ts",
+        "outputPath": "dist/development/demo-angular-local",
+        "index": "development/demo-angular-local/src/index.html",
+        "browser": "development/demo-angular-local/src/main.ts",
         "polyfills": ["zone.js"],
-        "tsConfig": "apps/demo-angular/tsconfig.app.json",
-        "styles": ["apps/demo-angular/src/styles.css"],
+        "tsConfig": "development/demo-angular-local/tsconfig.app.json",
+        "styles": ["development/demo-angular-local/src/styles.css"],
         "assets": []
       },
       "configurations": {
@@ -34,7 +34,7 @@
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
       "options": {
-        "buildTarget": "demo-angular:build:development"
+        "buildTarget": "demo-angular-local:build:development"
       }
     }
   }

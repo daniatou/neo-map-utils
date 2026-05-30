@@ -1,0 +1,38 @@
+<main
+  class="min-h-screen bg-llp-surface text-llp-text"
+  [class.dark]="dark()"
+  [attr.data-theme]="dark() ? 'dark' : 'light'"
+>
+  <div class="grid min-h-screen grid-cols-1 lg:grid-cols-[22rem_1fr]">
+    <aside class="z-10 border-b border-llp-border bg-llp-surface/90 p-4 lg:border-b-0 lg:border-r">
+      <div class="mb-4 flex items-center justify-between gap-3">
+        <div>
+          <h1 class="text-lg font-semibold tracking-normal">Neo Maps</h1>
+          <p class="text-sm text-llp-muted">Angular + Leaflet demo</p>
+        </div>
+        <button
+          type="button"
+          class="rounded-llp border border-llp-border px-3 py-2 text-sm transition hover:bg-llp-primary/10 focus:outline-none focus:ring-2 focus:ring-llp-primary/30"
+          (click)="toggleTheme()"
+        >
+          {{ dark() ? 'Light' : 'Dark' }}
+        </button>
+      </div>
+
+      <llp-layer-panel
+        [config]="config"
+        [layerAdapter]="layerAdapter()"
+        title="Map layers"
+        variant="default"
+      />
+    </aside>
+
+    <section class="relative min-h-[520px] overflow-hidden bg-llp-panel">
+      <div #mapRoot class="absolute inset-0"></div>
+      <div class="pointer-events-none absolute bottom-6 left-6 rounded-llp border border-llp-border bg-llp-surface/95 px-4 py-3 shadow-llp">
+        <p class="text-sm font-medium">Leaflet map</p>
+        <p class="text-xs text-llp-muted">Base layers use radio buttons. Overlays use checkboxes.</p>
+      </div>
+    </section>
+  </div>
+</main>

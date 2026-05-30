@@ -6,7 +6,8 @@
   "packageManager": "pnpm@10.12.1",
   "scripts": {
     "nx": "nx",
-    "start": "nx serve demo-angular",
+    "start": "nx serve demo-angular-local",
+    "showcase": "node tools/run-showcase.mjs",
     "build": "nx run-many -t build",
     "test": "nx run-many -t test",
     "lint": "nx run-many -t lint",

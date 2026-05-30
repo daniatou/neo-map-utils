@@ -1,3 +1,9 @@
+
+import { LeafletLayerAdapter, LayerPanelComponent } from '@neo-maps/leaflet-layer-panel-angular';
+import type { LayerAdapter, LayerPanelConfig } from '@neo-maps/leaflet-layer-panel';
+import * as L from 'leaflet';
+
+
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -7,9 +13,6 @@ import {
   ViewChild,
   signal
 } from '@angular/core';
-import { LeafletLayerAdapter, LayerPanelComponent } from '@neo-maps/leaflet-layer-panel-angular';
-import type { LayerAdapter, LayerPanelConfig } from '@neo-maps/leaflet-layer-panel';
-import * as L from 'leaflet';
 
 type DemoGeometry =
   | { readonly type: 'LineString'; readonly coordinates: readonly [number, number][] }

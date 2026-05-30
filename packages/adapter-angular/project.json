@@ -6,13 +6,10 @@
   "tags": ["scope:angular", "type:adapter"],
   "targets": {
     "build": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "executor": "@angular-devkit/build-angular:ng-packagr",
+      "outputs": ["{workspaceRoot}/dist/packages/adapter-angular"],
       "options": {
-        "outputPath": "dist/packages/adapter-angular",
-        "main": "packages/adapter-angular/src/index.ts",
-        "tsConfig": "packages/adapter-angular/tsconfig.lib.json",
-        "assets": ["packages/adapter-angular/src/**/*.html", "packages/adapter-angular/src/**/*.css"]
+        "project": "packages/adapter-angular/ng-package.json"
       }
     },
     "test": {

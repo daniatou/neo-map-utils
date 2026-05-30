@@ -1,6 +1,6 @@
 {
   "name": "@neo-maps/leaflet-layer-panel",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "license": "MIT",
   "type": "module",
   "sideEffects": false,
@@ -9,8 +9,8 @@
   },
   "exports": {
     ".": {
-      "types": "./index.d.ts",
-      "import": "./index.js"
+      "types": "./src/index.d.ts",
+      "import": "./src/index.js"
     }
   }
 }
