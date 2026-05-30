@@ -1,5 +1,11 @@
 # Release Notes
 
+## 0.1.5 - npm Metadata Refresh
+
+- Refreshed npm metadata for the published packages.
+- Added package descriptions, keywords, repository links, issue links, and package file allowlists.
+- Expanded the Angular adapter npm README with badges, install instructions, styling setup, usage, adapter notes, and theming details.
+
 ## 0.1.4 - Publishable Angular Adapter
 
 - Re-published the Angular adapter after switching to Angular Package Format.

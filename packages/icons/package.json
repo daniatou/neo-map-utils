@@ -1,6 +1,6 @@
 {
   "name": "@neo-maps/layer-panel-icons",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Framework-independent SVG icon registry for Neo Maps layer panels.",
   "license": "MIT",
   "type": "module",

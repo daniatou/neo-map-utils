@@ -121,13 +121,13 @@ importers:
   packages/adapter-angular:
     dependencies:
       '@neo-maps/layer-panel-icons':
-        specifier: 0.1.2
+        specifier: 0.1.3
         version: link:../icons
       '@neo-maps/layer-panel-theme':
-        specifier: 0.1.2
+        specifier: 0.1.3
         version: link:../theme
       '@neo-maps/leaflet-layer-panel':
-        specifier: 0.1.2
+        specifier: 0.1.3
         version: link:../core
 
   packages/adapter-react:
