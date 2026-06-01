@@ -15,7 +15,7 @@
     "@angular/compiler": "^20.0.0",
     "@angular/core": "^20.0.0",
     "@angular/platform-browser": "^20.0.0",
-    "@neo-maps/leaflet-layer-panel-angular": "^0.1.6",
+    "@neo-maps/leaflet-layer-panel-angular": "^0.1.7",
     "leaflet": "^1.9.4",
     "tslib": "^2.8.1",
     "zone.js": "^0.15.1"

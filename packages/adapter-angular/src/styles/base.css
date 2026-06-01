@@ -1,0 +1,67 @@
+.llp-range {
+  accent-color: rgb(var(--llp-primary));
+  height: 0.35rem;
+  cursor: pointer;
+  appearance: none;
+  border-radius: 999px;
+  background: rgb(var(--llp-muted) / 0.18);
+}
+
+.llp-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 0.85rem;
+  height: 0.85rem;
+  border: 0;
+  border-radius: 999px;
+  background: rgb(var(--llp-primary));
+  box-shadow: 0 1px 6px rgb(var(--llp-primary) / 0.25);
+}
+
+.llp-range::-moz-range-thumb {
+  width: 0.85rem;
+  height: 0.85rem;
+  border: 0;
+  border-radius: 999px;
+  background: rgb(var(--llp-primary));
+  box-shadow: 0 1px 6px rgb(var(--llp-primary) / 0.25);
+}
+
+.llp-icon,
+.llp-icon__svg,
+.llp-icon svg {
+  display: inline-flex;
+  width: 1em;
+  height: 1em;
+}
+
+.llp-icon__svg {
+  align-items: center;
+  justify-content: center;
+}
+
+.llp-icon svg {
+  display: block;
+  color: currentColor;
+}
+
+.llp-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(var(--llp-muted) / 0.24) transparent;
+}
+
+.llp-scrollbar::-webkit-scrollbar {
+  width: 0.4rem;
+}
+
+.llp-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.llp-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgb(var(--llp-muted) / 0.22);
+}
+
+.llp-scrollbar:hover::-webkit-scrollbar-thumb {
+  background: rgb(var(--llp-muted) / 0.34);
+}

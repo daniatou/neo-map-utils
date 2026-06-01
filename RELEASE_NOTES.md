@@ -1,10 +1,11 @@
 # Release Notes
 
-## 0.1.6 - Developer Experience Improvements
+## 0.1.7 - Precompiled CSS And Developer Experience Improvements
 
 ### Developer Experience
 
 - Added `@neo-maps/layer-panel-theme/styles/theme.css` as a single reliable CSS entry point for theme variables and base panel styles.
+- Added precompiled Angular adapter CSS so consumers no longer need to configure Tailwind to scan `node_modules`.
 - Updated documentation to recommend `theme.css` instead of importing split theme files.
 - Broadened Angular adapter peer dependencies to Angular 17, 18, 19, and 20.
 - Added `group` and `layerGroup` to `LayerType` for Leaflet layer group use cases.

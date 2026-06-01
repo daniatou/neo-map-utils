@@ -5,8 +5,17 @@
   "projectType": "library",
   "tags": ["scope:angular", "type:adapter"],
   "targets": {
+    "build-styles": {
+      "executor": "nx:run-commands",
+      "outputs": ["{projectRoot}/src/styles.css"],
+      "options": {
+        "command": "node tools/build-adapter-angular-styles.mjs",
+        "cwd": "."
+      }
+    },
     "build": {
       "executor": "@angular-devkit/build-angular:ng-packagr",
+      "dependsOn": ["build-styles"],
       "outputs": ["{workspaceRoot}/dist/packages/adapter-angular"],
       "options": {
         "project": "packages/adapter-angular/ng-package.json"

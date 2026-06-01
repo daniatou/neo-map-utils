@@ -1,6 +1,6 @@
 {
   "name": "@neo-maps/layer-panel-theme",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "CSS variables, design tokens, and Tailwind preset for Neo Maps layer panels.",
   "license": "MIT",
   "type": "module",

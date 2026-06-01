@@ -266,14 +266,16 @@ You can override CSS variables globally:
 
 ## CSS Architecture
 
-The adapter currently ships a small CSS file for component-specific primitives and consumes the shared theme variables. The long-term package goal is to publish a fully precompiled CSS bundle so consumers do not need Tailwind at all.
+The adapter ships precompiled CSS generated from the component templates. Consumers do not need Tailwind and do not need to scan `node_modules`.
 
-Until that build step is finalized, import:
+Import the shared theme and adapter CSS once in your global stylesheet:
 
 ```css
 @import '@neo-maps/layer-panel-theme/styles/theme.css';
 @import '@neo-maps/leaflet-layer-panel-angular/styles.css';
 ```
+
+The package still uses Tailwind internally as an implementation detail.
 
 ## Showcase
 
